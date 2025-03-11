@@ -1,0 +1,56 @@
+research_task:
+  description: >
+    Conduct research on the topic "{topic}" for a social media post on {platform}.
+    - Gather **accurate and relevant** information.
+    - **Fetch ONE image URL directly from Google Image search results.**
+    - If the first image is broken, return another from the **remaining top 10.**
+    - **No looping or retries beyond this.**
+  expected_output: >
+    1. **High-quality content** relevant to the topic.
+    2. **One best image URL** (directly from Google Images).
+    3. **A meaningful, engaging caption.**
+    4. **Relevant hashtags** for better reach.
+    5. **Verified external URLs** (if applicable).
+  agent: researcher
+
+facebook_task:
+  description: >
+    Create a **Facebook post** optimized for engagement, ensuring that the **text, images, and hashtags** align with Facebook’s best practices.
+  expected_output: >
+    A **high-quality Facebook post** that includes:
+      - Well-structured **text content**.
+      - **Image (if available from research)**.
+      - Relevant **hashtags** (if applicable).
+      - A **clear call to action** (if relevant).
+  agent: facebook_agent
+
+instagram_task:
+  description: >
+    Generate an **Instagram post** that is **visually appealing**, engaging, and **caption-optimized**.
+  expected_output: >
+    A **well-crafted Instagram post** that includes:
+      - A **compelling caption** related to the topic.
+      - **Mandatory image** (from research).
+      - A well-researched set of **hashtags**.
+  agent: instagram_agent
+
+twitter_task:
+  description: >
+    Create an **engaging tweet** based on the research, ensuring that it fits within Twitter’s character limit.
+  expected_output: >
+    A **high-impact tweet** that includes:
+      - A **concise but engaging message** (under 280 characters).
+      - Optional **image (if available from research)**.
+      - **Relevant hashtags** (if applicable).
+  agent: twitter_agent
+
+linkedin_task:
+  description: >
+    Generate a **professional LinkedIn post** that provides value and encourages engagement.
+  expected_output: >
+    A **thoughtful and professional LinkedIn post** including:
+      - **Industry-relevant, insightful content**.
+      - Optional **image (if available from research)**.
+      - **A structured, easy-to-read format**.
+      - Relevant **hashtags** (if applicable).
+  agent: linkedin_agent
