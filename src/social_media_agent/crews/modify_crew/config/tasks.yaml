@@ -1,0 +1,7 @@
+post_modifier_task:
+  description: >
+    You will be given a post, content, and feedback_prompt. Your goal is to modify the post based on the
+    feedback provided in the feedback_prompt. 
+  expected_output: >
+    The modified post that incorporates the feedback provided in the feedback_prompt.
+  agent: post_modifier_agent

@@ -1,0 +1,42 @@
+post_evaluator_task:
+  description: >
+    Evaluate the generated social media post based on clarity, tone, engagement, 
+    platform alignment, hashtags, and overall effectiveness.
+    Provide a score from 1 to 10 for each category and an overall score.
+    Provide a brief explanation for each score.
+    The evaluation should be based on the following criteria:
+    - Clarity: Is the message clear and easy to understand?
+    - Tone: Does the tone match the brand's voice and the platform's audience?
+    - Engagement: Does the post encourage interaction or engagement from the audience?
+    - Platform Alignment: Is the post suitable for the specific social media platform?
+    - Hashtags: Are the hashtags relevant and effective for the post?
+    - Overall Effectiveness: How well does the post achieve its intended purpose?
+  expected_output: >
+    A JSON object containing the evaluation scores and explanations for each category.
+    {
+      "clarity": {
+        "score": _._,
+        "explanation": "The message is clear and easy to understand."
+      },
+      "tone": {
+        "score": _._,
+        "explanation": "The tone matches the brand's voice but could be more engaging."
+      },
+      "engagement": {
+        "score": _._,
+        "explanation": "The post encourages some interaction but lacks a strong call to action."
+      },
+      "platform_alignment": {
+        "score": _._,
+        "explanation": "The post is well-suited for Instagram."
+      },
+      "hashtags": {
+        "score": _._,
+        "explanation": "Some hashtags are relevant, but others are too generic."
+      },
+      "overall_effectiveness": {
+        "score": Average of the above scores,
+        "explanation": "Overall, the post is effective but has room for improvement. what can be done to improve it?"
+      }
+    }
+  agent: post_evaluator_agent

@@ -10,31 +10,59 @@ This project automates **social media post generation** using **CrewAI** and **G
 
 ## 🚀 How It Works
 
-1. **Researcher Agent** gathers relevant information, hashtags, and images.
-2. **Manager Agent** assigns the correct platform-specific content creator.
-3. **Social Media Agents** generate optimized posts for the given platform.
-4. **Final output** includes the post, hashtags, and an image URL.
+1. **Research Crew**: Gathers relevant information, hashtags, and images for the given topic.
+2. **Dynamic Platform Agent**: Based on the user's selected platform (e.g., Instagram, Facebook, Twitter, LinkedIn), a specialized content creator agent is instantiated for that platform only.
+3. **Post Creation**: The platform agent generates an optimized post using the research results, following platform-specific best practices and formatting.
+4. **Image & Hashtag Integration**: The post includes relevant images and hashtags tailored for the selected platform.
+5. **Output**: The final, ready-to-publish post is saved to a file and/or returned to the user.
 
-## Folder Structure
+> **Note:** There is no manager agent. The system dynamically creates the correct platform agent at runtime based on user input.
+
+## 📁 Folder Structure (Full)
 
 ```
-social_media_agent/
-├── .venv/                      # Virtual environment (automatically gets created by running kickoff command)
-├── src/social_media_agent/
-│   ├── crews/post_crew/        # Crew definition
-│   │   ├── config/agents.yaml  # Configuration files for agents
-│   │   ├── config/tasks.yaml   # Configuration files for tasks
-│   │   ├── post_crew.py        # Crew setup file
-│   ├── tools/                  # Custom tools for search and AI interactions
-│   │   ├── custom_tool.py      # LLM and search tool integration
-│   ├── main.py                 # Main entry point for execution
-├── .env                        # Environment variables
-├── .gitignore                  # Ignore unnecessary files
-├── post.md                     # Output generated post
-├── pyproject.toml              # Dependencies and package config
-├── README.md                   # Project documentation
-├── social-media-agent.ipynb    # Jupyter Notebook (Testing)
-├── uv.lock                     # uv package lock file
+project_root/
+├── .env                       # Environment variables
+├── .gitignore                 # Git ignore file
+├── .venv/                     # Python virtual environment
+├── src/
+    └── social_media_agent/
+        ├── __init__.py
+        ├── main.py            # Main entry point
+        ├── tools/
+        │   ├── __init__.py
+        │   └── custom_tool.py # Custom LLM/search tools
+        └── crews/
+            ├── evaluation_crew/
+            │   ├── evaluation_crew.py
+            │   └── config/
+            │       ├── agents.yaml
+            │       └── tasks.yaml
+            ├── image_crew/
+            │   ├── image_crew.py
+            │   └── config/
+            │       ├── agents.yaml
+            │       └── tasks.yaml
+            ├── modify_crew/
+            │   ├── modify_crew.py
+            │   └── config/
+            │       ├── agents.yaml
+            │       └── tasks.yaml
+            ├── post_crew/
+            │   ├── post_crew.py
+            │   └── config/
+            │       ├── agents.yaml
+            │       └── tasks.yaml
+            └── research_crew/
+                ├── research_crew.py
+                └── config/
+                    ├── agents.yaml
+                    └── tasks.yaml
+├── crewai_flow.html           # CrewAI flow visualization
+├── pyproject.toml             # Project dependencies/config
+├── README.md                  # Project documentation
+├── social-media-agent.ipynb   # Jupyter notebook for testing
+└── uv.lock                    # Dependency lock file
 ```
 
 ## 🔥 Key Features
@@ -105,20 +133,31 @@ Or using CrewAI Flow:
 crewai flow kickoff
 ```
 
-## 🔄 How It Works
-
-1. **Manager Agent**: Oversees the entire process and assigns tasks.
-2. **Researcher Agent**: Finds relevant content based on the given topic.
-3. **Social Media Agents** (Instagram, Facebook, Twitter, LinkedIn): Generate platform-specific posts.
-4. **Custom Tooling**: Uses LLMs and search tools to fetch images and refine content.
-
 ## 🔧 Configuration
 
-You can **modify agents and tasks** in:
+The project is highly configurable and modular. You can customize agents, tasks, and tools as follows:
 
-- **`config/agents.yaml`** → Define AI agents (researcher, manager, social media creators).
-- **`config/tasks.yaml`** → Define research and content creation tasks.
-- **`custom_tool.py`** → Implement custom LLM model and temperature settings.
+- **Agent and Task Configuration:**
+
+  - Each crew (e.g., research, post, image, evaluation, modify) has its own `config/agents.yaml` and `config/tasks.yaml` files under `src/social_media_agent/crews/<crew_name>/config/`.
+  - Edit these YAML files to define agent roles, goals, and task descriptions for each step of the workflow.
+  - The post agent is dynamically created for the selected platform (Instagram, Facebook, Twitter, LinkedIn) at runtime.
+
+- **Custom Tools:**
+
+  - Extend or modify LLM and search tool logic in `src/social_media_agent/tools/custom_tool.py`.
+  - Add new tools or change model parameters as needed for your use case.
+
+- **Environment Variables:**
+
+  - API keys and other secrets are set in the `.env` file at the project root.
+  - Required: `GEMINI_API_KEY`, `SERPER_API_KEY` (see Installation and Setup).
+
+- **Dependencies:**
+  - All dependencies are managed in `pyproject.toml`.
+  - Use `uv` or `crewai` to install and sync dependencies.
+
+> For advanced customization, you can add new crews, agents, or tasks by following the structure in the `src/social_media_agent/crews/` directory.
 
 ## 🎯 Example Input & Output
 
@@ -137,6 +176,18 @@ Experience the magic of Kerala's sunsets! ✨ Golden sands meet turquoise waters
 
 🌍 #Kerala #TravelPhotography #IncredibleIndia #BeachSunset
 ```
+
+## 🐍 Requirements
+
+- **Python**: >=3.10, <3.13
+- **Dependencies**: CrewAI, Streamlit, and others (see `pyproject.toml`).
+- **.env file**: Required for API keys (see setup instructions above).
+
+## 🏛️ Architecture Overview
+
+- **Backend**: CrewAI orchestrates multiple agents (Manager, Researcher, Social Media, Image, Evaluation, Modify) for post generation.
+- **Frontend**: Streamlit app for user-friendly post creation.
+- **Custom Tools**: Extendable via `src/social_media_agent/tools/custom_tool.py`.
 
 ## 🔗 Future Improvements
 

@@ -1,0 +1,22 @@
+serper_search_task:
+  description: >
+    Perform a Google search using the 'serper_tool' to retrieve the most relevant 
+    URLs for the given topic '{topic}'. Analyze the search response and extract 
+    the top 5 most relevant URLs. Ensure the extracted URLs are not from the source 
+    instagram or facebook and also valid and suitable for further processing.
+  expected_output: >
+    A Python list containing the top 5 most relevant URLs for the given topic.
+    Example: ["https://www.example.com/", "https://www.example2.com/",...]
+  agent: serper_search_agent
+
+crawl_task:
+  description: >
+    Pass the exact same python list to the 'scrape_tool' to extract content 
+    in Markdown list format. Analyze the extracted Markdown content and create a 
+    single, well-structured, and detailed summarized content that captures the 
+    key information from all the markdowns. Ensure the summary is readable and 
+    suitable for use in social media posts or other content platforms.
+  expected_output: >
+    A single summarized and detailed content string extracted and synthesized 
+    from the given python list.
+  agent: web_crawler_agent

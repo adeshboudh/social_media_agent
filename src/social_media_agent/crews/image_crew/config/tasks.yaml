@@ -1,0 +1,15 @@
+image_search_task:
+  description: >
+    Search for image urls using 'image_search_tool' related to the topic: '{topic}'.
+    The tool will return a json response containing image urls. Filter out the image 
+    urls and store it in a python list. Remember to exclude any image urls from
+    the source instagram or facebook.
+  expected_output: >
+    A list of 5 image URLs or file paths that are relevant to the topic '{topic}'.
+    [
+      "url1",
+      "url2",
+      "url3",
+      ...
+    ]
+  agent: image_search_agent

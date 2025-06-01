@@ -3,17 +3,17 @@ from crewai.project import CrewBase, agent, crew, task
 from social_media_agent.tools.custom_tool import llm_creator
 
 @CrewBase
-class PostCrew:
-    """Post Crew"""
+class EvaluationCrew:
+    """Evaluation Crew"""
 
     agents_config = "config/agents.yaml"
     tasks_config = "config/tasks.yaml"
     
     @agent
-    def post_creator_agent(self) -> Agent:
+    def post_evaluator_agent(self) -> Agent:
         """Creates the Evaluator Agent"""
         return Agent(
-            config=self.agents_config["post_creator_agent"],
+            config=self.agents_config["post_evaluator_agent"],
             verbose=True,
             memory=True,
             llm=llm_creator,
@@ -21,16 +21,16 @@ class PostCrew:
         )
     
     @task
-    def post_creator_task(self) -> Task:
-        """Creates the Post Task"""
+    def post_evaluator_task(self) -> Task:
+        """Creates the Evaluator Task"""
         return Task(
-            config=self.tasks_config["post_creator_task"],
+            config=self.tasks_config["post_evaluator_task"],
             verbose=True,
         )
     
     @crew
     def crew(self) -> Crew:
-        """Creates the Post Crew dynamically based on selected platforms"""
+        """Creates the Evaluator Crew dynamically based on selected platforms"""
         return Crew(
             agents=self.agents,
             tasks=self.tasks,

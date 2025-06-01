@@ -1,19 +1,19 @@
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
-from social_media_agent.tools.custom_tool import llm_creator
+from social_media_agent.tools.custom_tool import llm_creator, image_search_tool
 
 @CrewBase
-class PostCrew:
-    """Post Crew"""
+class ImageCrew:
+    """Image Crew"""
 
     agents_config = "config/agents.yaml"
     tasks_config = "config/tasks.yaml"
     
     @agent
-    def post_creator_agent(self) -> Agent:
-        """Creates the Evaluator Agent"""
+    def image_search_agent(self) -> Agent:
+        """Creates the Image Agent"""
         return Agent(
-            config=self.agents_config["post_creator_agent"],
+            config=self.agents_config["image_search_agent"],
             verbose=True,
             memory=True,
             llm=llm_creator,
@@ -21,11 +21,12 @@ class PostCrew:
         )
     
     @task
-    def post_creator_task(self) -> Task:
-        """Creates the Post Task"""
+    def image_search_task(self) -> Task:
+        """Creates the Image Task"""
         return Task(
-            config=self.tasks_config["post_creator_task"],
+            config=self.tasks_config["image_search_task"],
             verbose=True,
+            tools=[image_search_tool]
         )
     
     @crew
